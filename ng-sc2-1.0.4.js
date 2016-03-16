@@ -16,6 +16,8 @@ var BNET_BONUSPOOL = '/@ID@/1/@NAME@/ladder/@LADDERID@';
 var KEY_RANKS_STORAGE = 'WARSHOP@@!!NGRANKS104';
 var KEY_DATE_STORAGE = 'WARSHOP@@104!!NGDATE';
 
+$.fn.dataTable.ext.errMode = 'throw'; // It uses alerts otherwise. No very nice for users!
+
 var LeagueIDs = {
    "GRANDMASTER": 100,
    "MASTER":      90,
