@@ -1,7 +1,7 @@
 // Nocturnal Gamers - SC2 Rankings
 // Author: Carl Corbeil
 // Date: March 2016
-// Version: 1.0.3
+// Version: 1.0.4
 
 // GM : 100, Master : 90, Diamond 80, etc.
 
@@ -13,8 +13,8 @@ var BNET_LADDER = 'https://us.api.battle.net/sc2/ladder/@ID@?locale=en_US&apikey
 var BNET_BONUSPOOL = '/@ID@/1/@NAME@/ladder/@LADDERID@';
 //var BNET_BONUSPOOL = 'http://us.battle.net/sc2/en/profile/@ID@/1/@NAME@/ladder/@LADDERID@';
 
-var KEY_RANKS_STORAGE = 'WARSHOP@@!!NGRANKS103';
-var KEY_DATE_STORAGE = 'WARSHOP@@103!!NGDATE';
+var KEY_RANKS_STORAGE = 'WARSHOP@@!!NGRANKS104';
+var KEY_DATE_STORAGE = 'WARSHOP@@104!!NGDATE';
 
 var LeagueIDs = {
    "GRANDMASTER": 100,
@@ -320,15 +320,16 @@ function drawPlayer(p, table) {
          },
          success:  function (response) {
             var bonusPoolNode = $(response).find('#bonus-pool');
-            if (bonusPoolNode) {
+            if (bonusPoolNode.length > 0) {
                p.BonusPool = bonusPoolNode.children('span').html();
-               p.Updated = true;
-               p.BonusDate = moment().format();
-               table.row(rowIndex).data(p).draw();
-               sessionStorage[KEY_RANKS_STORAGE] = JSON.stringify(Players); //Store locally.
             } else {
-               
+               p.BonusPool = 0;
             }
+            
+            p.Updated = true;
+            p.BonusDate = moment().format();
+            table.row(rowIndex).data(p).draw();
+            sessionStorage[KEY_RANKS_STORAGE] = JSON.stringify(Players); //Store locally.
          },
       });
    };
