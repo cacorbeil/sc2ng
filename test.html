@@ -9,16 +9,22 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="yes" />
 
-    <title>nG Players - Starcraft II Rankings</title>
+    <title>nG Players - Starcraft II Rankings - Test Page</title>
+    
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
     <script src="js/jquery-2.2.1.min.js"></script>
     <link href="js/bootstrap.min.css" rel="stylesheet" />
-    <script src="js/datatables.min.js"></script>
+    <script src="js/datatables.js"></script>
     <link href="js/datatables.min.css" rel="stylesheet" />
     <script src="js/moment.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     
     <style>
+      body {
+         font-size: 0.75em;
+      }
+    
       .img-sc2 {
          width: 24px;
          height: 24px;
@@ -61,7 +67,6 @@
             <thead class="thead-inverse">
                  <tr>
                      <th>League</th>
-                     <th></th>
                      <th>Race</th>
                      <th>Divison Rank</th>
                      <th>Points</th>
@@ -71,6 +76,7 @@
                      <th>%</th>
                      <th>Profile</th>
                      <th>Bonus</th>
+                     <th title="Hypothetical Points">hPoints</th>
                  </tr>
              </thead>
              <tbody>
@@ -81,10 +87,15 @@
                      <em>(data refreshed every 5 minutes)</em>: <span id="lastUpdate" style="color:#F00;"></span>
                   </th>
                </tr>
+               <tr>
+                  <th colspan="11" style="text-align:left;">
+                     <span id="nbPlayers"></span>
+                  </th>
+               </tr>
              </tfoot>
          </table>
       </div>
   </div>
-   <script src="ng-sc2-1.0.3.js"></script>
+   <script src="ng-sc2-1.0.6.js"></script>
 </body>
 </html>
