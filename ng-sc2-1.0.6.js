@@ -1,7 +1,7 @@
 // Nocturnal Gamers - SC2 Rankings
 // Author: Carl Corbeil
 // Date: March 2016
-// Version: 1.0.5
+// Version: 1.0.6
 
 // GM : 100, Master : 90, Diamond 80, etc.
 
@@ -13,8 +13,8 @@ var BNET_LADDER = 'https://us.api.battle.net/sc2/ladder/@ID@?locale=en_US&apikey
 var BNET_BONUSPOOL = '/@ID@/1/@NAME@/ladder/@LADDERID@';
 //var BNET_BONUSPOOL = 'http://us.battle.net/sc2/en/profile/@ID@/1/@NAME@/ladder/@LADDERID@';
 
-var KEY_RANKS_STORAGE = 'WARSHOP@@!!NGRANKS105';
-var KEY_DATE_STORAGE = 'WARSHOP@@105!!NGDATE';
+var KEY_RANKS_STORAGE = 'WARSHOP@@!!NGRANKS106';
+var KEY_DATE_STORAGE = 'WARSHOP@@106!!NGDATE';
 
 $.fn.dataTable.ext.errMode = 'throw'; // It uses alerts otherwise. Not very nice for users!
 
@@ -137,7 +137,7 @@ Players.add(438533, 'Adonisto', 'Adonisto');
 Players.add(1052655, 'Marthy', 'Marthy');
 Players.add(401741, 'DeathRow', 'DeathRow');
 Players.add(403065, 'MammouthQc', 'MammouthQc');
-Players.add(6208868, 'Chobo', 'Chobo'); // ShuriKn #2
+Players.add(6208868, 'HarvySpecter', 'HarvySpecter'); // ShuriKn #2
 Players.add(1123653, 'nGYepp', 'nGYepp');
 Players.add(909257, 'crBox', 'crBox');
 Players.add(3537564, 'Sky', 'Sky');
@@ -283,20 +283,24 @@ $(document).ready(function () {
             "render": function ( data, type, full, meta ) {
                if (type == "display") {
                   if (data.PlusMinus > 0) {
-                     var pColor = "#d9534f";
-                     var pText = "";
-                     if (data.PlusMinus > data.Value) {
-                        pColor = "#5cb85c";
-                        pText = "+";
+                     var pColor = "#d9534f"; // red
+                     if (data.Value > data.PlusMinus) {
+                        pColor = "#5cb85c"; // green
                      }
-                     return "<span title='Points + (BonusPool * 2 * Winrate)'>" + data.Value + "</span>" +
-                     " <span style='color:"+pColor+"' title='50% winrate'><small>("+pText+(data.PlusMinus-data.Value)+")</small></span>";
+                     return "<span title='Points + (BonusPool * 2 * 50% winrate)'>" + data.PlusMinus + "</span>" +
+                     (data.Value != data.PlusMinus ? " <span style='color:"+pColor+"' title='w/ current winrate'><small>("+(data.Value)+")</small></span>" : "");
                   } else {
-                     return "<span title='formula: Points + (BonusPool * 2 * Winrate)'>" + data.Value + "</span>";
+                     return full.Points;
+                  }
+               } else if (type == "sort") {
+                  if (data.PlusMinus > 0) {
+                     return data.PlusMinus;
+                  } else {
+                     return full.Points;
                   }
                }
                
-               return data.Value;
+               return data.PlusMinus; // 50% winrate
             },
          },
       ],
